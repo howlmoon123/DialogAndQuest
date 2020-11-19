@@ -52,7 +52,10 @@ namespace Dialog.Editor
                EditorGUILayout.LabelField("No Dialog Selected");
             }else
             {
-                EditorGUILayout.LabelField(selectedDialog.name);
+               foreach(DialogNode nodes in selectedDialog.GetAllNodes())
+                {
+                    EditorGUILayout.LabelField(nodes.text);
+                }
             }
         }
     }
