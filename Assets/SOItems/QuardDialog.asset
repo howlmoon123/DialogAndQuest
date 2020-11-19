@@ -12,4 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c4303559d13784191c6eba3483ce99, type: 3}
   m_Name: QuardDialog
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - uniqueId: a
+    text: Hello
+    children:
+    - Hello
+    - Leave!
+  - uniqueId: 
+    text: 
+    children: []
+  - uniqueId: 
+    text: 
+    children: []
+  - uniqueId: 
+    text: 
+    children: []
+  - uniqueId: 
+    text: 
+    children: []
