@@ -53,15 +53,20 @@ namespace Dialog.Editor
                EditorGUILayout.LabelField("No Dialog Selected");
             }else
             {
-               
-               foreach(DialogNode nodes in selectedDialog.GetAllNodes())
+                EditorGUI.BeginChangeCheck();
+                foreach (DialogNode node in selectedDialog.GetAllNodes())
                 {
-                    string newText = EditorGUILayout.TextField(nodes.text);
-                    if (newText != nodes.text)
+                    EditorGUILayout.LabelField("Node:");
+                    string newText = EditorGUILayout.TextField(node.text);
+                    string uniqueId = EditorGUILayout.TextField(node.uniqueId);
+                    if (EditorGUI.EndChangeCheck())
                     {
-                        nodes.text = newText;
-                        EditorUtility.SetDirty(selectedDialog);
+                        
+                        Undo.RecordObject(selectedDialog, "Update Dialog text");
+                        node.text = newText;
+                        node.uniqueId = uniqueId;
                     }
+                }
             }
         }
     }
