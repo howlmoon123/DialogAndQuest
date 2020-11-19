@@ -9,6 +9,7 @@ namespace Dialog
         public string uniqueId;
         public string text;
         public string[] children;
+        public Rect position;
 
     }
 }

@@ -9,6 +9,7 @@ namespace Dialog.Editor
     public class DialogEditor : EditorWindow
     {
         Dialog selectedDialog = null;
+        GUIStyle nodeStyle;
        
 
         [MenuItem("Window/Dialog Editor")]
@@ -32,6 +33,11 @@ namespace Dialog.Editor
         private void OnEnable()
         {
             Selection.selectionChanged += OnSelectionChanged;
+            nodeStyle = new GUIStyle();
+            nodeStyle.normal.background = EditorGUIUtility.Load("node0") as Texture2D;
+            nodeStyle.normal.textColor = Color.white;
+            nodeStyle.padding = new RectOffset(20, 20, 20, 20);
+            nodeStyle.border = new RectOffset(12, 12, 12, 12);
         }
 
 
@@ -56,18 +62,26 @@ namespace Dialog.Editor
                 EditorGUI.BeginChangeCheck();
                 foreach (DialogNode node in selectedDialog.GetAllNodes())
                 {
-                    EditorGUILayout.LabelField("Node:");
-                    string newText = EditorGUILayout.TextField(node.text);
-                    string uniqueId = EditorGUILayout.TextField(node.uniqueId);
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        
-                        Undo.RecordObject(selectedDialog, "Update Dialog text");
-                        node.text = newText;
-                        node.uniqueId = uniqueId;
-                    }
+                    OnGUINode(node);
                 }
             }
+        }
+
+        private void OnGUINode(DialogNode node)
+        {
+            GUILayout.BeginArea(node.position, nodeStyle);
+            EditorGUILayout.LabelField("Node:", EditorStyles.whiteLabel);
+            string newText = EditorGUILayout.TextField(node.text);
+            string uniqueId = EditorGUILayout.TextField(node.uniqueId);
+            if (EditorGUI.EndChangeCheck())
+            {
+
+                Undo.RecordObject(selectedDialog, "Update Dialog text");
+                node.text = newText;
+                node.uniqueId = uniqueId;
+            }
+
+            GUILayout.EndArea();
         }
     }
 }
