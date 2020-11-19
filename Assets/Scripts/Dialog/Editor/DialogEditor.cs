@@ -9,6 +9,7 @@ namespace Dialog.Editor
     public class DialogEditor : EditorWindow
     {
         Dialog selectedDialog = null;
+       
 
         [MenuItem("Window/Dialog Editor")]
         public static void ShowEditorWindow()
@@ -52,10 +53,15 @@ namespace Dialog.Editor
                EditorGUILayout.LabelField("No Dialog Selected");
             }else
             {
+               
                foreach(DialogNode nodes in selectedDialog.GetAllNodes())
                 {
-                    EditorGUILayout.LabelField(nodes.text);
-                }
+                    string newText = EditorGUILayout.TextField(nodes.text);
+                    if (newText != nodes.text)
+                    {
+                        nodes.text = newText;
+                        EditorUtility.SetDirty(selectedDialog);
+                    }
             }
         }
     }
