@@ -13,7 +13,8 @@ namespace Dialog.Editor
         [MenuItem("Window/Dialog Editor")]
         public static void ShowEditorWindow()
         {
-            GetWindow(typeof(DialogEditor), false, "Dialog Editor");
+           GetWindow(typeof(DialogEditor), false, "Dialog Editor");
+           
         }
 
         [OnOpenAsset(2)]
@@ -39,6 +40,7 @@ namespace Dialog.Editor
             if (newDialogue != null)
             {
                 selectedDialog = newDialogue;
+                
                 Repaint();
             }
         }
