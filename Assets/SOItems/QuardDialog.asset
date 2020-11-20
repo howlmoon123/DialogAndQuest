@@ -18,15 +18,45 @@ MonoBehaviour:
     children:
     - Hello
     - Leave!
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 200
+  - uniqueId: 
+    text: Hello there
+    children: []
+    position:
+      serializedVersion: 2
+      x: 200
+      y: 200
+      width: 200
+      height: 200
   - uniqueId: 
     text: 
     children: []
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
   - uniqueId: 
     text: 
     children: []
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
   - uniqueId: 
-    text: 
+    text: whoa
     children: []
-  - uniqueId: 
-    text: 
-    children: []
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0

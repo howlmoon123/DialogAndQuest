@@ -23,6 +23,11 @@ namespace Dialog
         {
             return nodes;
         }
+
+        public DialogNode GetRootNode()
+        {
+            return nodes[0];
+        }
 #endif
     }
 }

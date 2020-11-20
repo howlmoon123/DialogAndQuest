@@ -10,20 +10,21 @@ namespace Dialog.Editor
     {
         Dialog selectedDialog = null;
         GUIStyle nodeStyle;
-       
+        bool isDragging;
+
 
         [MenuItem("Window/Dialog Editor")]
         public static void ShowEditorWindow()
         {
-           GetWindow(typeof(DialogEditor), false, "Dialog Editor");
-           
+            GetWindow(typeof(DialogEditor), false, "Dialog Editor");
+
         }
 
         [OnOpenAsset(2)]
-        public static bool OnOpenAsset(int instanceId, int line )
+        public static bool OnOpenAsset(int instanceId, int line)
         {
             Dialog editor = EditorUtility.InstanceIDToObject(instanceId) as Dialog;
-            if(editor != null)
+            if (editor != null)
             {
                 ShowEditorWindow();
             }
@@ -47,19 +48,19 @@ namespace Dialog.Editor
             if (newDialogue != null)
             {
                 selectedDialog = newDialogue;
-                
+
                 Repaint();
             }
         }
 
         private void OnGUI()
         {
-           if(selectedDialog == null)
+            if (selectedDialog == null)
             {
-               EditorGUILayout.LabelField("No Dialog Selected");
-            }else
+                EditorGUILayout.LabelField("No Dialog Selected");
+            } else
             {
-                EditorGUI.BeginChangeCheck();
+                ProcessEvents();
                 foreach (DialogNode node in selectedDialog.GetAllNodes())
                 {
                     OnGUINode(node);
@@ -67,9 +68,33 @@ namespace Dialog.Editor
             }
         }
 
-        private void OnGUINode(DialogNode node)
+        private void ProcessEvents()
         {
-            GUILayout.BeginArea(node.position, nodeStyle);
+            if(Event.current.type == EventType.MouseDown && !isDragging)
+            {
+                isDragging = true;
+
+            }else if(Event.current.type == EventType.MouseDrag && isDragging)
+            {
+                Undo.RecordObject(selectedDialog, "Move Dialog node");
+                selectedDialog.GetRootNode().rect.position = Event.current.mousePosition;
+                GUI.changed = true;
+
+            }else if(Event.current.type == EventType.MouseUp && isDragging)
+            {
+                isDragging = false;
+                
+            }
+        }
+    
+
+
+
+            private void OnGUINode(DialogNode node)
+        {
+
+            EditorGUI.BeginChangeCheck();
+            GUILayout.BeginArea(node.rect, nodeStyle);
             EditorGUILayout.LabelField("Node:", EditorStyles.whiteLabel);
             string newText = EditorGUILayout.TextField(node.text);
             string uniqueId = EditorGUILayout.TextField(node.uniqueId);
