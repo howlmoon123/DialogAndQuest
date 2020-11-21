@@ -12,4 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c4303559d13784191c6eba3483ce99, type: 3}
   m_Name: TestDialog
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - uniqueId: 20
+    text: Get on with it!
+    children:
+    - A
+    - B
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 76
+      width: 200
+      height: 100
+  - uniqueId: A
+    text: No
+    children:
+    - A
+    - B
+    rect:
+      serializedVersion: 2
+      x: 508
+      y: 63
+      width: 200
+      height: 100
+  - uniqueId: B
+    text: Yes
+    children:
+    - A
+    - B
+    rect:
+      serializedVersion: 2
+      x: 85
+      y: 217
+      width: 200
+      height: 100
